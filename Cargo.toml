@@ -8,4 +8,9 @@ edition = "2018"
 tokio = { version = "0.2", features = ["macros"] }
 warp = "0.2"
 
+[dependencies.mongodb]
+version = "1.0.0"
+default-features = false
+features = ["async-std-runtime"]
+
 
