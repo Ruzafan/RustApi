@@ -8,7 +8,7 @@ async fn main() {
     let hello = warp::path!("hello" / String).map(|name| format!("Hello, {}!", name));
 
     let get_collection = warp::get()
-        .and(warp::path("get_collecions"))
+        .and(warp::path("get_collections"))
         .and(warp::path::end())
         .and_then(mongo_repository::init_mongo);
 
