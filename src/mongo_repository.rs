@@ -4,7 +4,7 @@ use warp::Rejection;
 pub async fn init_mongo() -> Result<String, Rejection> {
     match get_databases_names().await {
         Ok(names) => Ok(names),
-        Err(error) => Err(warp::reject()),
+        Err(_) => Err(warp::reject()),
     }
 }
 
