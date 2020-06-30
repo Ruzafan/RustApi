@@ -1,5 +1,5 @@
 [package]
-name = "RustApi"
+name = "rust_api"
 version = "0.1.0"
 authors = ["MRamiro <marcramiro@gmail.com>"]
 edition = "2018"
