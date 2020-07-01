@@ -3,22 +3,20 @@ use mongodb::error::Error;
 use warp::Rejection;
 use mongodb::bson::doc;
 
-pub async fn init_mongo_and_insert() -> Result<String, Rejection> {
-    match insert_user().await {
+pub async fn insert_user(name: String) -> Result<String, Rejection> {
+    match insert("Users",doc! { "Name": name}).await {
         Ok(names) => Ok(names),
         Err(_) => Err(warp::reject()),
     }
 }
 
-pub async fn insert_user() -> Result<String, Error>
+pub async fn insert(collection: &str, document: mongodb::bson::Document) -> Result<String, Error>
 {
     let result: String = String::new();
     let client = common::initialize_mongo().await?;
     let db = client.database("blog");
-    let collection = db.collection("Users");
+    let collection = db.collection(collection);
 
-    let user = doc! { "Name":"Marc"};
-
-    collection.insert_one(user,None).await?;
+    collection.insert_one(document,None).await?;
     Ok(result)
 }
