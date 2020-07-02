@@ -1,7 +1,9 @@
 use warp::Filter;
-
+use crate::User;
 mod common;
 mod mongo_repository;
+mod User;
+
 
 #[tokio::main]
 
@@ -15,7 +17,18 @@ async fn main() {
          .and_then(|param: String| {
             mongo_repository::insert_user(param)
         });
-    warp::serve(add_user)
+
+    let get_user = warp::path("get_user")
+        .and(warp::path::param())  
+        .and(warp::path::end())
+        .and_then(|param: String| {
+            mongo_repository::get_user(param)
+        });
+        
+
+    let routes = add_user.or(get_user);
+
+    warp::serve(routes)
         .run(([127, 0, 0, 1], 3030))
         .await;
 }
