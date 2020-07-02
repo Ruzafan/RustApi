@@ -6,8 +6,6 @@ mod mongo_repository;
 
 #[tokio::main]
 async fn main() {
-    // GET /hello/warp => 200 OK with body "Hello, warp!"
-    //let hello = warp::path!("hello" / String).map(|name| format!("Hello, {}!", name));
 
     let add_user = warp::path("add_user")
         .and(warp::path::param())
