@@ -1,4 +1,4 @@
-use crate::{common, User};
+use crate::common;
 use mongodb::{bson::doc, bson::Document, error::Error, Collection};
 use warp::{reply::Json, Rejection};
 
@@ -26,7 +26,7 @@ async fn insert(collection_name: &str, document: mongodb::bson::Document) -> Res
 }
 
 async fn find_user(collection_name: &str, name: String) -> Result<Document, Error> {
-    
+
     let collection = get_collection(collection_name).await?;
     let filter = doc! { "Name": name };
 

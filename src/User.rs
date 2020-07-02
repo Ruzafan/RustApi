@@ -1,8 +1,12 @@
-use serde::{Serialize, Deserialize};
+use serde::{Deserialize, Serialize};
 
-#[derive(Serialize, Deserialize, Debug)]
-pub struct UserData
+#[derive(Deserialize, Serialize)]
+pub struct user_data
 {
     pub name: String,
     pub age: u16
+}
+
+impl user_data {
+    
 }
