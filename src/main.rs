@@ -13,9 +13,8 @@ async fn main() {
         // Only accept bodies smaller than 16kb...
         .and(warp::body::content_length_limit(1024 * 16))
         .and(warp::body::json())
-        .map(|mut user: user::user_data| {
-            mongo_repository::insert_user(user.name);
-            warp::reply::html("Ok")
+        .and_then(|user: user::user_data| {
+            mongo_repository::insert_user(user)
         });
 
         let get_user = warp::path("get_user")
