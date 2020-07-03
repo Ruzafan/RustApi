@@ -1,10 +1,10 @@
-use crate::{common,user};
+use crate::{common,user::UserData};
 use mongodb::{bson::{self, doc}, bson::Document, error::Error, Collection};
 use warp::{reply::Json, Rejection};
 
 const USER_COLLECTION: &'static str = "Users";
 
-pub async fn insert_user(user: user::user_data) -> Result<String, Rejection> {
+pub async fn insert_user(user: UserData) -> Result<String, Rejection> {
     let user_doc:Document = doc! {
         "Name": user.name,
         "Age": user.age,

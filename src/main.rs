@@ -1,5 +1,6 @@
 use warp::Filter;
 
+#[path = "./entities/user.rs"]
 mod user;
 mod common;
 mod mongo_repository;
@@ -13,7 +14,7 @@ async fn main() {
         // Only accept bodies smaller than 16kb...
         .and(warp::body::content_length_limit(1024 * 16))
         .and(warp::body::json())
-        .and_then(|user: user::user_data| {
+        .and_then(|user: user::UserData| {
             mongo_repository::insert_user(user)
         });
 
