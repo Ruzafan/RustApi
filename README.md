@@ -16,5 +16,10 @@ Once we are ready to start the API we will open a terminal and type:
 
 Available endpoint:
 
-- localhost:3030/add_user/{user_name}
+- localhost:3030/add_user
+    Body as JSON {
+      name: string,
+      age: u32,
+      email: string
+    }
 - localhost:3030/get_user/{user_name}
