@@ -8,7 +8,8 @@ pub async fn insert_user(user: UserData) -> Result<String, Rejection> {
     let user_doc:Document = doc! {
         "Name": user.name,
         "Age": user.age,
-        "Email": user.email
+        "Email": user.email,
+        "Password": user.password
     };
     match insert(USER_COLLECTION,user_doc ).await {
         Ok(names) => Ok(names),
@@ -18,6 +19,15 @@ pub async fn insert_user(user: UserData) -> Result<String, Rejection> {
 
 pub async fn get_user(email: String) -> Result<Json, Rejection> {
     let filter = doc! { "Email": email };
+    match find_user(USER_COLLECTION, filter).await {
+        Ok(user) => Ok(warp::reply::json(&user)),
+        Err(_) => Err(warp::reject()),
+    }
+}
+
+pub async fn login(email:String, password: String) -> Result<Json, Rejection>
+{
+    let filter = doc! { "Email": email, "Password": password };
     match find_user(USER_COLLECTION, filter).await {
         Ok(user) => Ok(warp::reply::json(&user)),
         Err(_) => Err(warp::reject()),
